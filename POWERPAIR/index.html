@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f7ef" />
+  <title>Ingrevia AI — Smart Shopping Decision System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" data-page="home" aria-label="Ingrevia home">
+      <span class="brand-mark">I</span><span class="brand-copy"><span>Ingrevia <b>AI</b></span><small>Health &amp; Safety</small></span>
+    </button>
+    <nav class="nav" id="nav">
+      <button data-page="ocr" data-scan-mode="single" data-focus="#choose-photo-a" class="nav-link">Scan one product</button>
+      <button data-page="ocr" data-scan-mode="compare" data-focus="#ocr-text-a" class="nav-link">Compare products</button>
+      <button data-page="ocr" data-scan-mode="compare" data-focus="#compare-ocr-products" class="nav-cta">Start comparing <span>↗</span></button>
+    </nav>
+    <button class="menu" id="menu" aria-label="Open menu"><span></span><span></span></button>
+  </header>
+
+  <main>
+    <section class="page active" id="home">
+      <div class="hero shell">
+        <div class="hero-copy">
+          <span class="eyebrow"><i></i> AI-assisted shopping decisions</span>
+          <h1>Shop smarter.<br><em>Understand better.</em></h1>
+          <p>Compare products, understand nutrition and ingredients, and make informed shopping decisions.</p>
+          <div class="hero-actions">
+            <button class="btn btn-light" data-page="ocr" data-scan-mode="single" data-focus="#choose-photo-a">Scan a label <span>⌗</span></button>
+            <button class="btn btn-primary" data-page="ocr" data-scan-mode="compare" data-focus="#ocr-text-a">Compare products <span>↗</span></button>
+          </div>
+          <button class="demo-link" id="demo-products">Try demo products <span>→</span></button>
+        </div>
+        <div class="hero-art">
+          <div class="art-circle"></div>
+          <div class="bottle bottle-a"><span>GREENS</span><strong>Oats +<br>Apple</strong><i>✳</i></div>
+          <div class="bottle bottle-b"><span>DAILY</span><strong>Berry<br>Crunch</strong><i>●</i></div>
+          <div class="hero-result">
+            <div class="result-check">✓</div>
+            <div><small>Recommended</small><strong>Greens Oats</strong></div>
+            <span>86</span>
+          </div>
+          <div class="floating-chip chip-a">less sugar</div>
+          <div class="floating-chip chip-b">more fiber</div>
+        </div>
+      </div>
+
+      <div class="problem shell">
+        <div><span class="section-kicker">THE PROBLEM</span><h2>Labels tell a story.<br>We help you read it.</h2></div>
+        <p>Long ingredient lists and dense nutrition tables make everyday shopping harder than it needs to be. Ingrevia turns that information into clear reasons, so you know what to look for—not just what to buy.</p>
+      </div>
+
+      <div class="feature-grid shell">
+        <button class="feature-card" type="button" data-page="ocr" data-scan-mode="compare" data-focus="#compare-ocr-products"><span>⇄</span><h3>Smart comparison</h3><p>Compare the numbers that matter, side by side.</p></button>
+        <button class="feature-card" type="button" data-page="ocr" data-scan-mode="single" data-focus="#ocr-text-a"><span>◉</span><h3>Nutrition analysis</h3><p>See low, moderate and high values in context.</p></button>
+        <button class="feature-card" type="button" data-page="ocr" data-scan-mode="single" data-focus="#ocr-text-a"><span>✳</span><h3>Ingredient explainer</h3><p>Understand ingredients in simple everyday language.</p></button>
+        <button class="feature-card" type="button" data-page="ocr" data-scan-mode="single" data-focus="#choose-photo-a"><span>⌗</span><h3>OCR label scanner</h3><p>Extract label text directly from product photos.</p></button>
+        <button class="feature-card" type="button" data-page="ocr" data-scan-mode="compare" data-focus="#compare-ocr-products"><span>✦</span><h3>AI product summary</h3><p>Get three clear reasons behind each recommendation.</p></button>
+      </div>
+
+      <section class="home-flow shell">
+        <div class="flow-copy"><span class="section-kicker">HOW IT WORKS</span><h2>From label to<br><em>shopping confidence.</em></h2></div>
+        <div class="flow-steps">
+          <div><b>01</b><strong>Add or scan</strong><span>Enter product details or upload a label.</span></div>
+          <div><b>02</b><strong>Understand</strong><span>Review nutrition and ingredient context.</span></div>
+          <div><b>03</b><strong>Decide</strong><span>Compare scores and see the reasons why.</span></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page shell inner-page" id="ocr">
+      <div class="page-heading">
+        <div><span class="section-kicker">OCR LABEL SCANNER</span><h1>Health-Based Product Comparison</h1></div>
+      </div>
+      <div class="scan-mode-switch" role="group" aria-label="Choose scan workflow">
+        <button class="scan-mode-option" type="button" data-scan-mode="single" aria-pressed="false">Scan one product</button>
+        <button class="scan-mode-option" type="button" data-scan-mode="compare" aria-pressed="true">Compare two products</button>
+      </div>
+      <div class="dual-ocr">
+        <article class="ocr-product" data-ocr="a">
+          <div class="ocr-product-heading"><span>Product 1</span><b id="ocr-status-a">Waiting for photo</b></div>
+          <label class="ocr-text-label product-name-label" for="product-name-a">Product name</label>
+          <input class="product-name-input" id="product-name-a" type="text" value="Product 1" placeholder="Enter product name">
+          <div class="ocr-upload" id="ocr-upload-a">
+            <input type="file" id="ocr-file-a" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden>
+            <div class="ocr-dropzone" id="ocr-dropzone-a">
+              <div class="upload-icon">⌗</div>
+              <strong id="ocr-name-a">Upload Product 1 photo</strong>
+              <p>JPG, JPEG or PNG · maximum 5 MB</p>
+              <button class="btn btn-light ocr-choose" id="choose-photo-a" type="button" data-for="a">Choose photo</button>
+            </div>
+            <img id="ocr-preview-a" class="ocr-preview" alt="Product 1 label preview">
+            <div class="image-actions">
+              <button type="button" class="change-image" data-for="a">Change image</button>
+              <button type="button" class="remove-image" data-for="a">Remove image</button>
+            </div>
+          </div>
+          <label class="ocr-text-label" for="dataset-product-a">Or select a product from the dataset</label>
+          <select class="dataset-product-select" id="dataset-product-a" data-for="a">
+            <option value="">Loading products...</option>
+          </select>
+          <p class="dataset-product-status" id="dataset-status-a" aria-live="polite">No photo? Select a product to load its dataset details.</p>
+          <label class="ocr-text-label" for="ocr-text-a">Label text / selected dataset details</label>
+          <textarea id="ocr-text-a" class="ocr-text" placeholder="Extracted Product 1 text appears here"></textarea>
+          <button class="btn btn-light extract-one" type="button" data-extract="a">Extract Product 1 <span>⌗</span></button>
+        </article>
+
+        <article class="ocr-product" data-ocr="b">
+          <div class="ocr-product-heading"><span>Product 2</span><b id="ocr-status-b">Waiting for photo</b></div>
+          <label class="ocr-text-label product-name-label" for="product-name-b">Product name</label>
+          <input class="product-name-input" id="product-name-b" type="text" value="Product 2" placeholder="Enter product name">
+          <div class="ocr-upload" id="ocr-upload-b">
+            <input type="file" id="ocr-file-b" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden>
+            <div class="ocr-dropzone" id="ocr-dropzone-b">
+              <div class="upload-icon">⌗</div>
+              <strong id="ocr-name-b">Upload Product 2 photo</strong>
+              <p>JPG, JPEG or PNG · maximum 5 MB</p>
+              <button class="btn btn-light ocr-choose" id="choose-photo-b" type="button" data-for="b">Choose photo</button>
+            </div>
+            <img id="ocr-preview-b" class="ocr-preview" alt="Product 2 label preview">
+            <div class="image-actions">
+              <button type="button" class="change-image" data-for="b">Change image</button>
+              <button type="button" class="remove-image" data-for="b">Remove image</button>
+            </div>
+          </div>
+          <label class="ocr-text-label" for="dataset-product-b">Or select a product from the dataset</label>
+          <select class="dataset-product-select" id="dataset-product-b" data-for="b">
+            <option value="">Loading products...</option>
+          </select>
+          <p class="dataset-product-status" id="dataset-status-b" aria-live="polite">No photo? Select a product to load its dataset details.</p>
+          <label class="ocr-text-label" for="ocr-text-b">Label text / selected dataset details</label>
+          <textarea id="ocr-text-b" class="ocr-text" placeholder="Extracted Product 2 text appears here"></textarea>
+          <button class="btn btn-light extract-one" type="button" data-extract="b">Extract Product 2 <span>⌗</span></button>
+        </article>
+      </div>
+      <div class="dual-ocr-actions">
+        <p id="ocr-notice">Upload a photo or enter label text for each product. Check product names, serving sizes, nutrition values, units, and ingredients against the package. Generic category estimates may fill missing nutrition values.</p>
+        <button class="btn btn-primary" id="compare-ocr-products" type="button">Compare both products <span>→</span></button>
+        <button class="btn btn-primary" id="analyze-single-product" type="button">Analyze this product <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="page shell inner-page" id="results">
+      <div id="results-content"></div>
+    </section>
+  </main>
+
+  <footer>
+    <button class="brand footer-brand" data-page="home"><span class="brand-mark">I</span><span class="brand-copy"><span>Ingrevia <b>AI</b></span><small>Health &amp; Safety</small></span></button>
+    <p>Clear labels. Better decisions.</p>
+    <small>General information only — not medical advice.</small>
+  </footer>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
